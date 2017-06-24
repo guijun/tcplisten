@@ -1,4 +1,4 @@
-// +build linux darwin dragonfly freebsd netbsd openbsd rumprun
+// +build linux darwin dragonfly freebsd netbsd openbsd rumprun !windows
 
 // Package tcplisten provides customizable TCP net.Listener with various
 // performance-related options:
@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"runtime"
 	"syscall"
 )
 

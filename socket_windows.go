@@ -1,5 +1,4 @@
-// +build !darwin
-// +build !windows
+// +build windows
 
 package tcplisten
 
@@ -9,9 +8,9 @@ import (
 )
 
 func newSocketCloexec(domain, typ, proto int) (int, error) {
-	fd, err := syscall.Socket(domain, typ|syscall.SOCK_NONBLOCK|syscall.SOCK_CLOEXEC, proto)
+	fd, err := syscall.Socket(domain, typ, proto)
 	if err == nil {
-		return fd, nil
+		return int(fd), nil
 	}
 
 	if err == syscall.EPROTONOSUPPORT || err == syscall.EINVAL {
