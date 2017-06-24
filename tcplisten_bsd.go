@@ -1,4 +1,4 @@
-// +build darwin dragonfly freebsd netbsd openbsd rumprun !windows
+// +build darwin dragonfly freebsd netbsd openbsd rumprun !windows !linux
 
 package tcplisten
 
