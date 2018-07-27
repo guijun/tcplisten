@@ -34,6 +34,8 @@ type Config struct {
 	// FastOpen enables TCP_FASTOPEN.
 	FastOpen bool
 
+	//NoDelay
+	NoDelay bool
 	// Backlog is the maximum number of pending TCP connections the listener
 	// may queue before passing them to Accept.
 	// See man 2 listen for details.
@@ -110,6 +112,13 @@ func (cfg *Config) fdSetup(fd int, sa syscall.Sockaddr, addr string) error {
 			return err
 		}
 	}
+
+	if cfg.NoDelay {
+		if err = enableNoDelay(fd); err != nil {
+			return err
+		}
+	}
+
 
 	if err = syscall.Bind(fd, sa); err != nil {
 		return fmt.Errorf("cannot bind to %q: %s", addr, err)

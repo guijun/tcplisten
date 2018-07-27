@@ -30,6 +30,14 @@ func enableFastOpen(fd int) error {
 	return nil
 }
 
+func enableNoDelay(fd int) error {
+	var enable=1;
+	if err := syscall.SetsockoptInt(fd, syscall.SOL_TCP, syscall.TCP_NODELAY, enable); err != nil {
+		return fmt.Errorf("cannot enable TCP_NODELAY: %s", err)
+	}
+	return nil
+}
+
 const fastOpenQlen = 16 * 1024
 
 func soMaxConn() (int, error) {
